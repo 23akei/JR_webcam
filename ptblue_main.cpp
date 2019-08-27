@@ -37,7 +37,7 @@ int main(void){
 
         pf->Resampling();
         pf->Predict();
-        pf->CalcWeight(frame);
+        pf->CalcWeight_b(frame);
 
         Particle p = pf->Measure();
         p.PrintParameter();

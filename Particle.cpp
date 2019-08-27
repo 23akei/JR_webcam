@@ -200,3 +200,46 @@ double ParticleFilter::Likelifood(int x, int y, cv::Mat &input_image)
 
     return 1.0 / (sqrt(2.0 * CV_PI) * sigma) * expf(-dist * dist / (2.0 * sigma * sigma));
 }
+
+//重みの計算(青)
+void ParticleFilter::CalcWeight_b(cv::Mat &input_image)
+{
+    double sum_weight = 0.0;
+
+    for (int i = 0; i < particle_vector.size(); ++i)
+    {
+        int x = particle_vector[i].width;
+        int y = particle_vector[i].height;
+
+        //尤度の計算
+        if (x < 0 || x > input_image.size().width || y < 0 || y > input_image.size().height)
+            particle_vector[i].weight = 0.001;
+        else
+            particle_vector[i].weight = Likelifood_b(x, y, input_image);
+
+        sum_weight += particle_vector[i].weight;
+    }
+
+    //正規化
+    for (int i = 0; i < particle_vector.size(); ++i)
+    {
+        particle_vector[i].weight /= sum_weight;
+    }
+}
+
+//尤度の計算
+//尤度の計算を変更すると色々と使える
+//今回は青色を追跡する
+double ParticleFilter::Likelifood_b(int x, int y, cv::Mat &input_image)
+{
+    float b, g, r;
+    float dist = 0.0, sigma = 50.0;
+
+    b = input_image.data[y * input_image.step + x * input_image.elemSize() + 0];    //B
+    g = input_image.data[y * input_image.step + x * input_image.elemSize() + 1];    //G
+    r = input_image.data[y * input_image.step + x * input_image.elemSize() + 2];    //R
+
+    dist = sqrt((255 - b) * (255 -b) + g * g + r * r);
+
+    return 1.0 / (sqrt(2.0 * CV_PI) * sigma) * expf(-dist * dist / (2.0 * sigma * sigma));
+}

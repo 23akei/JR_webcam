@@ -47,8 +47,10 @@ public:
     Particle Measure(); //重心の計算
     void Predict(); //予測
     void CalcWeight(cv::Mat &input_image); //重みの計算
+    void CalcWeight_b(cv::Mat &input_image); //重みの計算（青）
     void Resampling(); //リサンプリング
     double Likelifood(int x, int y, cv::Mat &input_image); //尤度計算
+    double Likelifood_b(int x, int y, cv::Mat &input_image); //尤度計算(青)
 
     std::vector<Particle> GetPaticleVector(); //粒子を返却する
 };
