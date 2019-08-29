@@ -6,3 +6,6 @@ ptmain.cpp
 
 ptblue_main.cpp
 パーティクルフィルタによる青色物体追跡（メイン関数）
+
+LRParticle_ros.cpp
+ボールが左右どちらにあるか検知し、その結果(L,R)をpublishする。
