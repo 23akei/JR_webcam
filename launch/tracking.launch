@@ -1,0 +1,8 @@
+<launch>
+
+<node pkg="JR_webcam" type="JR_webcam_node" name="launch_JR_webcam" />
+<node pkg="JR_webcam" type="JR_tracking_node" name="launch_JR_tracking" />
+<node name="tf_twist" type="tf_twist" pkg="tf_twist" >
+ <param name="speed" value="30" />
+ </node>
+</launch>
