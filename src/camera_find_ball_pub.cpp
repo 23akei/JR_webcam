@@ -76,12 +76,10 @@ int main(int argc, char **argv){
         looprate.sleep();
 
         //for debug
-        //cv::imshow("Camera", frame);
-
-        /*char c = (char)cv::waitKey(1);
-
+        cv::imshow("Camera", frame);
+        char c = (char)cv::waitKey(1);
         if (c == 'q')
-            break;*/        
+            break;
     }
 
     return 0;
