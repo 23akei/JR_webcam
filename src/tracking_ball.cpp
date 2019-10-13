@@ -10,6 +10,7 @@
 #include <geometry_msgs/Twist.h>
 
 #define SPD (1.0)
+#define SIKII (3000)
 #define FRAME_WIDTH (640)
 #define FRAME_HEIGHT (480)
 #define FRAME_CENTER (100)  //中央とみなす範囲。中心からプラスマイナスこれだけ。
@@ -72,6 +73,6 @@ void repos(std_msgs::Float64MultiArray position){
 }
 
 void numpx(std_msgs::Int32 np){
-    if(np.data > 3000) status = 1;
-    if(np.data < 3000) status = 2;
+    if(np.data > SIKII) status = 1;
+    if(np.data < SIKII) status = 2;
 }
