@@ -6,13 +6,17 @@
   * 0の時は通常制御。
   * 1,2の時に追跡。
 
+# launchファイル
+- launch/tracking.launch
+    * このパッケージ内のノードをすべて起動する。
+
 # 内部で行う処理
 - カメラからの画像（映像）によるボールの検出
 - ボールが画面の中心から外れてしまった時の軌道修正
 - （通常時用）自立走行プログラムからの切り替え（指示）
 
 # パラメータ
-- tracking_ball.cpp
+- src/tracking_ball.cpp
   * FRAME_CENTER 
     + カメラの中央とみなす範囲
     + カメラフレームの中央からのピクセル数。
@@ -23,7 +27,7 @@
     + この数以上のピクセルに追跡する色があった場合に追跡モードを変更する。
     + この値を超えると後退をやめ、左右の位置を調整しながら前進する。
   
-- camera_find_ball_pub.cpp
+- src/camera_find_ball_pub.cpp
   * B_MIN
   * G_MIN
   * R_MIN
@@ -31,3 +35,7 @@
   * G_MAX
   * R_MAX
     + 抽出する色（追跡するボールの色）の範囲を指定
+
+- launch/tracking.launch
+  * tf_twist/speed
+    + tf_twistに出力する最高速度
