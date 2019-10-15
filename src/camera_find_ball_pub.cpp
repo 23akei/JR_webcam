@@ -20,11 +20,12 @@
 #define G_MAX 127
 #define R_MAX 127
 
-int smode = 0;
-std_msgs::Int32 px;
+int smode = 0;  //動作ステータス(画像処理のモード)
+std_msgs::Int32 px; //指定色のピクセル数
 
-void getmode(std_msgs::Int32 status);
+void getmode(std_msgs::Int32 status);   //動作ステータス更新
 
+//画像処理関数
 std_msgs::Float64MultiArray particle(cv::Mat frame);
 std_msgs::Float64MultiArray mask(cv::Mat frame);
 
@@ -64,16 +65,16 @@ int main(int argc, char **argv){
         ros::spinOnce();
         looprate.sleep();
 
-        //終了判定の条件
+        /*//終了判定の条件
         if (img.empty()){
             break;
-        }       
+        }*/      
     }
 
     return 0;
 }
 
-void getmode(std_msgs::Int32 status){
+void getmode(std_msgs::Int32 status){   //動作ステータスの更新
     smode = status.data;
 }
 
@@ -145,8 +146,7 @@ std_msgs::Float64MultiArray mask(cv::Mat img_in){
     cv::cvtColor(img_gauss, img_gray, CV_BGR2GRAY, 0);
     cv::adaptiveThreshold(img_gray, img_gray, 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY, 3, 2);
 
-     //特定色のピクセルの検出
-    //int np = 0;
+    //特定色のピクセルの検出
     for(int y = 0; y < img_gray.rows; y++){
         for(int x = 0; x < img_gray.cols; x++){
             if(img_gray.at<cv::Vec3b>(y, x)[0] == 0 && 
